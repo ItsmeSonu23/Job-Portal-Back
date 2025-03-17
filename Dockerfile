@@ -1,6 +1,6 @@
 # Start of Selection
 # Stage 1: Build the application
-FROM maven:3.9.9-openjdk-17-slim AS builder
+FROM maven:3.9.9-openjdk-17 AS builder
 # Copy the rest of the application code
 COPY . .
 

@@ -1,5 +1,6 @@
+# Start of Selection
 # Stage 1: Build the application
-FROM maven:3.9.9-openjdk-17 AS builder
+FROM maven:3.9.9-openjdk-17-slim AS builder
 # Copy the rest of the application code
 COPY . .
 
@@ -7,8 +8,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create a smaller runtime image
-FROM openjdk:17.0.1-jdk-slim
-
+FROM openjdk:17-slim
 
 # Copy the built JAR file from the builder stage
 COPY --from=builder /target/Job-Portal-0.0.1-SNAPSHOT.jar Job-Portal.jar
@@ -18,3 +18,4 @@ EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "Job-Portal.jar"]
+# End of Selection

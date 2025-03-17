@@ -1,6 +1,9 @@
-# Start of Selection
 # Stage 1: Build the application
-FROM maven:3.8.6-openjdk-17 AS builder
+FROM openjdk:17-slim AS builder
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
+
 # Copy the rest of the application code
 COPY . .
 
@@ -18,4 +21,3 @@ EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "Job-Portal.jar"]
-# End of Selection

@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.8.6-openjdk-23 AS builder
+FROM maven:3.8.6-openjdk-17 AS builder
 
 # Set the working directory in the container
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create a smaller runtime image
-FROM openjdk:23-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Set the working directory for runtime
 WORKDIR /app

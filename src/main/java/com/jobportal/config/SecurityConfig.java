@@ -49,7 +49,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowCredentials(true);
-        corsConfig.addAllowedOrigin("http://localhost:5173");  // Front-end URL
+        corsConfig.addAllowedOrigin("https://job-portal-cfrg.onrender.com");  // Front-end URL
         corsConfig.addAllowedHeader("*");
         corsConfig.addAllowedMethod("*");
 

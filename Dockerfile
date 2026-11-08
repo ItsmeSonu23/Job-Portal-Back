@@ -1,22 +1,28 @@
+
 # Stage 1: Build the application
-FROM openjdk:17-slim AS builder
+FROM eclipse-temurin:17-jdk-jammy AS builder
+
+WORKDIR /app
 
 # Install Maven
-RUN apt-get update && apt-get install -y maven
+RUN apt-get update && apt-get install -y maven \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the rest of the application code
+# Copy the application code
 COPY . .
 
 # Package the application, skipping tests
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create a smaller runtime image
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre-jammy
+
+WORKDIR /app
 
 # Copy the built JAR file from the builder stage
-COPY --from=builder /target/Job-Portal-0.0.1-SNAPSHOT.jar Job-Portal.jar
+COPY --from=builder /app/target/Job-Portal-0.0.1-SNAPSHOT.jar Job-Portal.jar
 
-# Expose port 8080 (default for Spring Boot applications)
+# Expose port 8080
 EXPOSE 8080
 
 # Run the application
